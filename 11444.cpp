@@ -1,4 +1,3 @@
-﻿// 11444. 피보나치 수 6
 #pragma warning(disable : 4996)
 
 #include<stdio.h>
