@@ -1,37 +1,37 @@
-﻿#include<iostream>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-bool ans[1000001];
+vector <int> P;
+bool S[1000001];
 long long Min, Max;
-int prime[100000], cnt;
 
-void setPrime() {
+int setPrime() {
 	int i, j;
 	bool p[1001001] = { false };
 	for (i = 2; i <= 1001000; i++) {
 		if (!p[i]) {
-			prime[cnt++] = i;
+			P.push_back(i);
 			for (j = i + i; j <= 1001000; j += i)
 				p[j] = true;
 		}
 	}
+	return P.size();
 }
 
 int main() {
-	setPrime();
+	int size = setPrime();
 	cin >> Min >> Max;
-	for (int i = 0; i < cnt; i++) {
-		long long inx, square = (long long)prime[i] * prime[i];
-		if (Max < square)
+	for (int i = 0; i < size; i++) {
+		long long s = 1LL * P[i] * P[i];
+		if (Max < s)
 			break;
-		inx = Min / square;
-		if (Min%square) inx++;
-		for (; inx <= Max / square; inx++)
-			ans[(inx*square) - Min] = true;
+		for (long long j = Min / s + (Min % s ? 1 : 0); j * s <= Max; j++)
+			S[j * s - Min] = true;
 	}
 	int  No = 0;
 	for (int i = 0; i <= Max - Min; i++) {
-		if (!ans[i]) No++;
+		if (!S[i]) No++;
 	}
 	cout << No;
 	return 0;
