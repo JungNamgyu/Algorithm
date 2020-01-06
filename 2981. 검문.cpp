@@ -1,13 +1,7 @@
-﻿#include<iostream>
+#include<iostream>
 #include<algorithm>
 #include<vector>
 using namespace std;
-
-int gcd(int a, int b) {
-	if (a % b == 0)
-		return b;
-	gcd(b, a % b);
-}
 
 int main() {
 	int N, Min = 2e9;
@@ -17,8 +11,7 @@ int main() {
 		cin >> P[i];
 	sort(P.begin(), P.end());
 	for (int i = 1; i < N; i++)
-		for (int j = 0; j < i; j++)
-				Min = min(Min, P[i] - P[j]);
+		Min = min(Min, P[i] - P[i - 1]);
 	for (int i = 1; i * i <= Min; i++) {
 		if (Min % i == 0) {
 			ANS.push_back(i);
