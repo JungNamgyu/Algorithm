@@ -1,34 +1,49 @@
 #include<iostream>
-#include<algorithm>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
-int N;
-vector < vector<int> > Cache, Dist;
+vector <int> p;
 
-int TSP(int cur, int visited) {
-	if (visited == (1 << N) - 1) return Dist[cur][0];
+int Union(int a, int b) {
+	if (p[a] == a && p[b] == b)
+		return p[a] = p[b] = min(p[a], p[b]);
+	else
+		return p[a] = p[b] = Union(p[a], p[b]);
+}
 
-	int& ret = Cache[cur][visited];
-	if (ret != 0) return ret;
-	ret = 2e9;
-	for (int next = 0; next < N; next++) {
-		if (Dist[cur][next] == 0) continue;
-		if (visited & (1 << next)) continue;
-		ret = min(ret, TSP(next, visited | (1 << next)) + Dist[cur][next]);
-	}
-	
-	return ret;
+int Find(int x) {
+	if (p[x] == x)
+		return x;
+	else
+		return p[x] = Find(p[x]);
 }
 
 int main() {
-	cin >> N;
-	Dist.resize(N, vector<int>(N));
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++)
-			cin >> Dist[i][j];
-	Cache.resize(N, vector<int>(1 << N));
+	int n, m;
 
-	cout << TSP(0, 1);
+	cin >> n >> m;
+	p.resize(n + 1);
+	for (int i = 0; i <= n; i++) p[i] = i;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			int path;
+			cin >> path;
+			if (path == 1) Union(i, j);
+		}
+	}
+
+	int st, en;
+	bool check = true;
+	cin >> st;
+	for (int i = 1; i < m; i++) {
+		cin >> en;
+		Find(st); Find(en);
+		if (p[st] != p[en])
+			check = false;
+		st = en;
+	}
+	cout << (check ? "YES" : "NO") << endl;
+
 	return 0;
 }
