@@ -1,5 +1,4 @@
-﻿#include<iostream>
-#include<ctype.h>
+#include<iostream>
 using namespace std;
 
 int main() {
