@@ -1,5 +1,3 @@
-#pragma warning(disable:4996)
-
 #include<cstdio>
 #include<vector>
 using namespace std;
@@ -27,14 +25,12 @@ int main() {
 		bool check = false;
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= N; j++) {
-				if (Cost[j] != 1e9) {
-					int sz = Next[j].size();
-					for (int k = 0; k < sz; k += 2) {
-						if (Cost[Next[j][k]] > Cost[j] + Next[j][k + 1]) {
-							Cost[Next[j][k]] = Cost[j] + Next[j][k + 1];
-							if (i == N)
-								check = true;
-						}
+				int sz = Next[j].size();
+				for (int k = 0; k < sz; k += 2) {
+					if (Cost[Next[j][k]] > Cost[j] + Next[j][k + 1]) {
+						Cost[Next[j][k]] = Cost[j] + Next[j][k + 1];
+						if (i == N)
+							check = true;
 					}
 				}
 			}
