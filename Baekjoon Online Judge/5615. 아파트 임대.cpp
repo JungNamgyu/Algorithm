@@ -11,7 +11,7 @@ ull modulo(ull a, ull d, ull n) {
 	}
 }
 
-bool miuller_rabin(ull n, ull a) {
+bool miller_rabin(ull n, ull a) {
 	ull d = n - 1;
 	for (; d % 2 == 0; d /= 2) {
 		if (modulo(a, d, n) == n - 1)
@@ -23,7 +23,7 @@ bool miuller_rabin(ull n, ull a) {
 
 bool is_prime(ull n) {
 	for (auto a : { 2, 3, 5, 7, 11 })
-		if (!miuller_rabin(n, a))
+		if (!miller_rabin(n, a))
 			return false;
 	return true;
 }
