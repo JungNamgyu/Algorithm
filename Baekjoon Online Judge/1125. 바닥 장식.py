@@ -1,5 +1,4 @@
-#%% divide
-def division(st, fi):
+def division(st, fi): #section division
     sect = []
     
     if st % 5:
@@ -9,8 +8,8 @@ def division(st, fi):
     sect = sect + [*range(st, fi, 5)] + [fi]
     
     return sect
-#%% section prefix sum
-def prefix(sect):
+
+def prefix(sect): #section prefix sum
     S = [[0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0]]
 
@@ -19,7 +18,7 @@ def prefix(sect):
         S[(st // 5) % 2][fi - st] += 1
         
     return S
-#%% program
+
 from math import ceil
 
 x1, y1, x2, y2 = map(int, input().split())
@@ -31,8 +30,8 @@ wood = [0, 0, 0, 0, 0, 0]
 for i in range(1, 6):
     for j in range(1, 6):
         for t in [0, 1]:
-            wood[i] += x[t][i] * (j*y[t][j]) #가로
-            wood[j] += (i*x[t][i]) * y[1-t][j] #세로
+            wood[i] += x[t][i] * (j*y[t][j]) #row
+            wood[j] += (i*x[t][i]) * y[1-t][j] #column
 
 answer = wood[5] + wood[4] + wood[3]
 
